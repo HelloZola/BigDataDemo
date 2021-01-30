@@ -10,15 +10,22 @@ import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IOUtils;
 import org.apache.hadoop.util.Progressable;
+import org.junit.Before;
 import org.junit.Test;
 
 public class HdfsDemo {
 
-    private static String SOURCE_PATH = "D:\\Test\\1920.txt";
-    private static String DEST_PATH = "/hbase/upload/1920.txt";
-//    private static String MASTER_URI = "hdfs://127.0.0.1:9000";
-//    private static String MASTER_URI = "hdfs://134.175.55.212:9000";
-    private static String MASTER_URI = "hdfs://zengwendong:8083";
+    private static String SOURCE_PATH = "E:\\Dev\\Data\\1920.txt";
+    private static String DEST_PATH = "/data/1920.txt";
+//    private static String MASTER_URI = "hdfs://hostname:9000";
+    private static String MASTER_URI = "hdfs://134.175.55.212:9000";
+//    private static String MASTER_URI = "hdfs://zengwendong:8083";
+
+
+    @Before
+    public void before(){
+        System.setProperty("HADOOP_USER_NAME","root");
+    }
 
     /**
      * 测试上传文件
@@ -44,12 +51,12 @@ public class HdfsDemo {
             }
         });
         IOUtils.copyBytes(in, out, conf);
- 
+
       /*byte[] buffer = new byte[1024];
         int len = 0;
 		while((len=in.read(buffer))>0){
 			out.write(buffer, 0, len);
-		} 
+		}
 		out.flush();
 		in.close();
 		out.close();*/
@@ -73,7 +80,7 @@ public class HdfsDemo {
         IOUtils.copyBytes(in, out, conf);
  
       /*byte[] buffer = new byte[1024];
-		int len = 0;
+        int len = 0;
 		while((len=in.read(buffer))>0){
 			out.write(buffer, 0, len);
 		} 
@@ -200,7 +207,7 @@ public class HdfsDemo {
 
     @Test
     public void testLs() throws IOException {
-        ls(new Configuration(), MASTER_URI, "/hbase/upload");
+        ls(new Configuration(), MASTER_URI, "/");
     }
 
 }
