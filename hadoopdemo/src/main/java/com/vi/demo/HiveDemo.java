@@ -75,7 +75,6 @@ public class HiveDemo {
         }
     }
 
-
     /**
      * drop table if exists iot_devicelocation;
      * ALTER TABLE schedule_events drop if exists partition (year>'0');
