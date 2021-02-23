@@ -1,8 +1,5 @@
 package com.vi.demo;
 
-import java.io.*;
-import java.net.URI;
-
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FSDataInputStream;
 import org.apache.hadoop.fs.FileStatus;
@@ -10,15 +7,24 @@ import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IOUtils;
 import org.apache.hadoop.util.Progressable;
+import org.junit.Before;
 import org.junit.Test;
+
+import java.io.*;
+import java.net.URI;
 
 public class HdfsDemo {
 
     private static String SOURCE_PATH = "D:\\Test\\1920.txt";
     private static String DEST_PATH = "/data/1920.txt";
-//    private static String MASTER_URI = "hdfs://127.0.0.1:9000";
-    private static String MASTER_URI = "hdfs://134.175.55.212:9000";
+    private static String MASTER_URI = "hdfs://hostname:9000";
+//    private static String MASTER_URI = "hdfs://134.175.55.212:9000";
 //    private static String MASTER_URI = "hdfs://zengwendong:8083";
+
+    @Before
+    public void before() {
+        System.setProperty("hadoop.home.dir", "D:\\Devolment\\hadoop\\hadoop-2.7.1");
+    }
 
     /**
      * 测试上传文件
@@ -38,21 +44,12 @@ public class HdfsDemo {
         FileSystem fs = FileSystem.get(new URI(MASTER_URI), conf);
         InputStream in = new FileInputStream(SOURCE_PATH);
         OutputStream out = fs.create(new Path(DEST_PATH), new Progressable() {
-            //            @Override
+            @Override
             public void progress() {
                 System.out.println("上传完一个设定缓存区大小容量的文件！");
             }
         });
         IOUtils.copyBytes(in, out, conf);
- 
-      /*byte[] buffer = new byte[1024];
-        int len = 0;
-		while((len=in.read(buffer))>0){
-			out.write(buffer, 0, len);
-		} 
-		out.flush();
-		in.close();
-		out.close();*/
     }
 
 
@@ -71,15 +68,6 @@ public class HdfsDemo {
         InputStream in = fs.open(new Path(DEST_PATH));
         OutputStream out = new FileOutputStream("E:\\XXXX.jar");
         IOUtils.copyBytes(in, out, conf);
- 
-      /*byte[] buffer = new byte[1024];
-		int len = 0;
-		while((len=in.read(buffer))>0){
-			out.write(buffer, 0, len);
-		} 
-		out.flush();
-		in.close();
-		out.close();*/
     }
 
     /**
