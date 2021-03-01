@@ -17,14 +17,17 @@ public class HdfsDemo {
 
     private static String SOURCE_PATH = "E:\\Dev\\Data\\1920.txt";
     private static String DEST_PATH = "/data/1920.txt";
-//    private static String MASTER_URI = "hdfs://hostname:9000";
-    private static String MASTER_URI = "hdfs://134.175.55.212:9000";
+//    private static String MASTER_URI = "hdfs://49.235.95.231:9000";
+    private static String MASTER_URI = "hdfs://master:9000";
+//    private static String MASTER_URI = "hdfs://134.175.55.212:9000";
 //    private static String MASTER_URI = "hdfs://zengwendong:8083";
 
 
+    //解决问题：Permission denied: user=root, access=WRITE, inode="/data":Administrator:supergroup:drwxr-xr-x
+    //core-site.xml里面配置hadoop.proxyuser.Administrator.hosts
     @Before
-    public void before(){
-        System.setProperty("HADOOP_USER_NAME","root");
+    public void before() {
+        System.setProperty("HADOOP_USER_NAME", "root");
     }
 
     /**
@@ -42,6 +45,7 @@ public class HdfsDemo {
     public void testUpload() throws Exception {
 
         Configuration conf = new Configuration();
+        conf.set("dfs.client.use.datanode.hostname", "true");//添加此配置信息即可
         FileSystem fs = FileSystem.get(new URI(MASTER_URI), conf);
         InputStream in = new FileInputStream(SOURCE_PATH);
         OutputStream out = fs.create(new Path(DEST_PATH), new Progressable() {
@@ -181,7 +185,7 @@ public class HdfsDemo {
     @Test
     public void testCat() throws IOException {
         //hbase/hbase.version 这个文件已经存在
-        cat(new Configuration(), MASTER_URI, "/hbase/hbase.version");
+        cat(new Configuration(), MASTER_URI, "/data");
     }
 
     /**

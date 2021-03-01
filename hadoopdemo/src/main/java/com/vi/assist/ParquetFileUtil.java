@@ -24,11 +24,11 @@ public class ParquetFileUtil {
 
     static Logger logger = Logger.getLogger(ParquetFileUtil.class);
 
-    public static void main(String[] args) throws Exception {
-
-//        parquetWriter("test\\parquet-out2","input.txt");
-        parquetReaderV2("test\\parquet-out2");
-    }
+//    public static void main(String[] args) throws Exception {
+//
+////        parquetWriter("test\\parquet-out2","input.txt");
+//        parquetReaderV2("test\\parquet-out2");
+//    }
 
 
     static void parquetReaderV2(String inPath) throws Exception {
@@ -40,7 +40,6 @@ public class ParquetFileUtil {
             System.out.println(line.toString());
         }
         System.out.println("读取结束");
-
     }
 
     //新版本中new ParquetReader()所有构造方法好像都弃用了,用上面的builder去构造对象
@@ -94,5 +93,13 @@ public class ParquetFileUtil {
         }
         System.out.println("write end");
         writer.close();
+    }
+
+    public static void main(String[] args) {
+        try {
+            parquetWriter("E:\\tmp\\parquet1","E:\\tmp\\test1.txt");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

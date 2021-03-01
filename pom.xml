@@ -9,7 +9,7 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <hadoopVersion>3.1.1</hadoopVersion>
+        <hadoopVersion>3.1.4</hadoopVersion>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
@@ -40,19 +40,6 @@
             <version>${hadoopVersion}</version>
         </dependency>
         <!-- Hadoop -->
-
-        <!--        <dependency>-->
-        <!--            <groupId>jdk.tools</groupId>-->
-        <!--            <artifactId>jdk.tools</artifactId>-->
-        <!--            <version>1.8</version>-->
-        <!--        </dependency>-->
-
-        <!--        <dependency>-->
-        <!--            <groupId>junit</groupId>-->
-        <!--            <artifactId>junit</artifactId>-->
-        <!--            <version>4.12</version>-->
-        <!--            <scope>test</scope>-->
-        <!--        </dependency>-->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
