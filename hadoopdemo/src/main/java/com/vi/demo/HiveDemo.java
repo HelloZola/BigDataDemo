@@ -6,10 +6,10 @@ import java.sql.*;
 
 public class HiveDemo {
 
-
     private static String DRIVER = "org.apache.hive.jdbc.HiveDriver";
     //    private static String URL = "jdbc:hive2://127.0.0.1:10000/default";
-    private static String URL = "jdbc:hive2://localhost:10000/default";
+//    private static String URL = "jdbc:hive2://master:10000/default";
+    private static String URL = "jdbc:hive2://49.235.95.231:10000/default";
     private static String USERNAME = "";
     private static String PASSWORD = "";
 
@@ -21,7 +21,7 @@ public class HiveDemo {
             // 加载hive jdbc驱动
             Class.forName(DRIVER);
             // 获取连接
-//            connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+            // connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
             connection = DriverManager.getConnection(URL);
             // 获取statement
             statement = connection.createStatement();
@@ -34,11 +34,13 @@ public class HiveDemo {
     @Test
     public void select() {
         try {
-            String sql = "select * from datetable1";
+            String sql = "select * from react1";
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
-                System.out.println(resultSet.getString(1));
-                System.out.println(resultSet.getDate(2));
+                System.out.println(resultSet.getObject(1));
+                System.out.println(resultSet.getObject(2));
+                System.out.println(resultSet.getObject(3));
+                System.out.println(resultSet.getObject(4));
             }
         } catch (Exception e) {
             e.printStackTrace();
